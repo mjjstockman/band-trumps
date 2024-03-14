@@ -1,9 +1,10 @@
-import Home from '../components/Home';
+import RegisterForm from '../components/RegisterForm';
+import MyComponent from '../components/MyComponent';
 
 export default function Page() {
   return (
     <div>
-      <Home />
+      <RegisterForm />
     </div>
   );
 }

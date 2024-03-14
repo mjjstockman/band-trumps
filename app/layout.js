@@ -1,5 +1,5 @@
-import _jsxDEV from 'react/jsx-dev-runtime';
-// import '../styles/globals.css';
+// These styles apply to every route in the application
+import '../styles/globals.css';
 
 export const metadata = {
   title: 'Create Next App',
