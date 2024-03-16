@@ -1,6 +1,41 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
+import { useSignUp } from '@clerk/nextjs';
 
 const RegisterForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [error, setError] = useState(null);
+
+  const signUp = useSignUp();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!termsAccepted) {
+      setError('Please accept the terms and conditions');
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    try {
+      await signUp({
+        emailAddress: email,
+        username,
+        password,
+      });
+      // Handle successful sign up, redirect or show success message
+    } catch (error) {
+      // Handle sign up errors
+      setError(error.message);
+    }
+  };
+
   return (
     <section className='bg-gray-50 dark:bg-gray-900'>
       <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
@@ -9,7 +44,7 @@ const RegisterForm = () => {
             <h1 className='text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white'>
               Create an account
             </h1>
-            <form className='space-y-4 md:space-y-6' action='#'>
+            <form className='space-y-4 md:space-y-6' onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor='email'
@@ -20,6 +55,8 @@ const RegisterForm = () => {
                   type='email'
                   name='email'
                   id='email'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                   placeholder='name@company.com'
                   required=''
@@ -35,6 +72,8 @@ const RegisterForm = () => {
                   type='input'
                   name='username'
                   id='username'
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   placeholder='username'
                   className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                   required=''
@@ -50,6 +89,8 @@ const RegisterForm = () => {
                   type='password'
                   name='password'
                   id='password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder='••••••••'
                   className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                   required=''
@@ -65,6 +106,8 @@ const RegisterForm = () => {
                   type='password'
                   name='confirm-password'
                   id='confirm-password'
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder='••••••••'
                   className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                   required=''
@@ -76,6 +119,8 @@ const RegisterForm = () => {
                     id='terms'
                     aria-describedby='terms'
                     type='checkbox'
+                    checked={termsAccepted}
+                    onChange={(e) => setTermsAccepted(e.target.checked)}
                     className='w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800'
                     required=''
                   />
@@ -101,9 +146,9 @@ const RegisterForm = () => {
               <p className='text-sm font-light text-gray-500 dark:text-gray-400'>
                 Already have an account?{' '}
                 <a
-                  href='#'
+                  href='/sign-in'
                   className='font-medium text-primary-600 hover:underline dark:text-primary-500'>
-                  Login here
+                  Sign In
                 </a>
               </p>
             </form>

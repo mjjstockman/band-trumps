@@ -1,3 +1,4 @@
+'use client';
 import RegisterForm from '../components/RegisterForm';
 import MyComponent from '../components/MyComponent';
 
