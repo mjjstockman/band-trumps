@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 const Nav = () => {
   return (
@@ -80,7 +81,10 @@ const Nav = () => {
       </div>
 
       <div className='navbar-end'>
-        <a className='mr-2 btn'>Sign Up</a>
+        <Link href='/register' className='mr-2 btn'>
+          Sign Up
+        </Link>
+
         <a className='btn'>Sign In</a>
       </div>
     </div>

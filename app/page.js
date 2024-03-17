@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <div>
       <Layout />
-      <RegisterForm />
+      <h1>HOME PAGE</h1>
     </div>
   );
 }

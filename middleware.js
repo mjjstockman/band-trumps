@@ -5,7 +5,7 @@ export default authMiddleware({
   publicRoutes: [
     '/',
     '/sign-in',
-    '/sign-up',
+    '/register',
     '/forgot-password',
     '/reset-password',
   ],
