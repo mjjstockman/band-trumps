@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
+import CardModel from './models/card';
 
 const app = express();
 
