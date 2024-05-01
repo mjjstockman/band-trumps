@@ -1,19 +1,10 @@
 import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
-import CardModel from './models/card';
+import cardsRoutes from './routes/cards';
 
 const app = express();
 
-app.get('/', async (req, res, next) => {
-  //   res.send('Hello, World!');
-  try {
-    // throw Error('An error!');
-    const cards = await CardModel.find().exec();
-    res.status(200).json(cards);
-  } catch (error) {
-    next(error);
-  }
-});
+app.use('/api/cards', cardsRoutes);
 
 app.use((req, res, next) => {
   next(Error('Endpoint not found'));
