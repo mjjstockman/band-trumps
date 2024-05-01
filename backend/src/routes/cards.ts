@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get('/', CardsController.getCards);
 
+router.post('/', CardsController.createCard);
+
 export default router;
